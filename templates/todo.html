@@ -1,87 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/static/todo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/todo.css">
 </head>
+
 <body>
 <header>
 <h2 class="title">ToDo List</h2>
-<div id="myDIV" class="header">
-  <input type="text" id="myInput" placeholder="추가하기...">
-  <span onclick="newElement()" class="addBtn">Add</span>
-</div>
+<form id="myDIV" class="header" action="/content" method="post">
+  <input name="name" type="text" id="myInput" placeholder="추가하기...">
+  <button type="submit" class="addBtn">Add</button>
+<!--  <span type onclick="" class="addBtn">Add</span>-->
+</form>
 </header>
 
 <section>
 <div>
 <ul id="list">
-  <li>할일1</li>
-  <li class="checked">할일2</li>
-  <li>할일3</li>
-  <li>할일4</li>
+    {% for testtest in content %}
+    <li><a href="/delete?id={{testtest[0]}}" id="xBtn">X</a>{{testtest[1]}}</li>
+    {% endfor %}
+    
 </ul>
+
 </div>
 </section>
 
-<script>
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
-
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
-}
-
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("글이 없어요 !");
-  } else {
-    document.getElementById("list").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
-}
-
-</script>
-
+<script src="/static/todo.js"></script>
 </body>
 </html>

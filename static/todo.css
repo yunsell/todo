@@ -2,7 +2,7 @@ body {
     margin: auto;
     margin-top: 150px;
     width: 60%;
-    background-color: rgba(68, 60, 60, 0.527);
+    background-color: rgba(148, 117, 117, 0.527);
   }
   
   /* Include the padding and border in an element's total width and height */
@@ -67,7 +67,7 @@ body {
   .title{
     text-align: center;
     font-size: 45px;
-    color: rgb(224, 184, 190);
+    color: rgb(133, 73, 93);
     text-shadow: 6px 2px 2px gray;
   }
   /* Style the close button */
@@ -109,7 +109,8 @@ body {
   
   /* Style the "Add" button */
   .addBtn {
-    padding: 10px;
+    border: 0px;
+    padding: 6px;
     width: 25%;
     background: #d9d9d9;
     float: left;
@@ -127,4 +128,13 @@ body {
   
   .addBtn:hover {
     background-color: #bbb;
+  }
+
+  #xBtn {
+    margin-right: 27px;
+    color: #eee;
+  }
+
+  #xBtn:hover {
+    color: salmon;
   }
