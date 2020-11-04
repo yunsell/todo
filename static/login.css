@@ -1,0 +1,15 @@
+.sign{
+    color: rgb(133, 73, 93);
+    text-shadow: 2px 2px 2px gray;
+}
+
+.box1{
+    position: absolute;
+    width: auto;
+    left: 35%;
+}
+
+@media screen and (max-width: 630px)
+{ 
+    .box1 { left:auto; }
+}

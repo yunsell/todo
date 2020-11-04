@@ -13,7 +13,7 @@ def get_conn():
     )
     return conn
 
-@app.route("/")
+@app.route("/") # 메인화면
 def todo():
 
     sql = """select num,content from todolist;"""
@@ -31,7 +31,7 @@ def todo():
     return render_template("/todo.html", content=test)
 
 
-@app.route("/content", methods=['POST',])
+@app.route("/content", methods=['POST',]) # 내용표시
 def content():
     if request.method == 'POST':
         element = request.form['name']
@@ -49,7 +49,7 @@ def content():
 
         return redirect(url_for('todo'))
 
-@app.route("/delete", methods=['POST','GET'])
+@app.route("/delete", methods=['POST','GET']) # 글삭제
 def delelte():
     # if request.method == 'POST':
 

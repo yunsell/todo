@@ -104,7 +104,7 @@ body {
     width: 75%;
     padding: 10px;
     float: left;
-    font-size: 16px;
+    font-size: 14px;
   }
   
   /* Style the "Add" button */
@@ -133,8 +133,24 @@ body {
   #xBtn {
     margin-right: 27px;
     color: #eee;
+    float: right;
   }
 
   #xBtn:hover {
     color: salmon;
   }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) { 
+  .title {font-size: 28px;}
+  .text {font-size: 14px;}
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { ... }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { ... }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { ... }
