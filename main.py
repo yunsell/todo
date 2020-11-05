@@ -1,4 +1,4 @@
-import sys, os, mariadb
+import mariadb
 from flask import Flask, render_template, request, redirect , url_for
 app = Flask(__name__)
 
@@ -30,6 +30,9 @@ def todo():
 
     return render_template("/todo.html", content=test)
 
+@app.route("/login")
+def login():
+    return render_template("/login.html")
 
 @app.route("/content", methods=['POST',]) # 내용표시
 def content():
