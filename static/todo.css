@@ -64,8 +64,9 @@ ul li.checked::before {
 
 .title{
     text-align: center;
-    font-size: 45px;
+    font-size: 50px;
     text-shadow: 6px 2px 2px gray;
+    font-weight: bold;
 }
 
 .close {
@@ -83,6 +84,7 @@ ul li.checked::before {
     background-color: lightgrey;
     padding: 30px 40px;
     text-align: center;
+    margin-bottom: 0px;
 }
 
 .header:after {
@@ -150,6 +152,8 @@ footer{
   .text {font-size: 14px;}
   .addBtn {font-size: 0.8em; height: 37px; width: 35%;}
   input {width:65%;}
+  body {margin-top: 75px;}
+  .header{padding: 20px 30px;}
 }
 
 /* Medium devices (tablets, 768px and up) */

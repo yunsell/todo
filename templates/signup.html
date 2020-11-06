@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/static/todo.css">
+<link rel="stylesheet" href="/static/menu.css">
+<link rel="stylesheet" href="/static/signup.css">
+
+{% extends "base.html" %}
+{% block section %}
+
+<section>
+    <div class="box1">
+        <h3 class="sign">회원가입</h3>
+        <form action="/sign_up" method="post">
+        <input type="text" name="ID" class="input_box" placeholder="아이디" required>
+        <input type="password" name="PW" class="input_box" placeholder="비밀번호" required>
+        <!-- <input type="password" name="pass" class="input_box" placeholder="비밀번호 확인" required> -->
+        <input type="text" name="NAME" class="input_box"placeholder="이름" required>
+        <input type="text" name="PHONE" class="input_box"placeholder="핸드폰 번호" required>
+        <input type="submit" class="signin2" value="회원가입" onclick="btn()">
+        </form>
+    </div>
+</section>
+
+<script>
+    function btn(){
+        alert('축하합니다 ! 회원 가입이 완료 되었습니다.');
+    }
+</script>
+
+{% endblock %}

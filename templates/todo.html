@@ -1,47 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,
-  maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="/static/todo.css">
-  <link rel="stylesheet" href="/static/menu.css">
-</head>
+<link rel="stylesheet" href="/static/todo.css">
+<link rel="stylesheet" href="/static/menu.css">
 
-<body>
+{% extends "base.html" %}
+{% block section %}
 
-
-<header>
-    <div class="dropdown">
-    <button class="dropbtn">MENU</button>
-    <div class="dropdown-content">
-    <a href="#">회원가입</a>
-    <a href="/login">로그인</a>
-    </div>
-</header>
-<nav>
-    <h2 class="title"><a href="/">ToDo List</a></h2>
-<form id="myDIV" class="header" action="/content" method="post">
-  <input name="name" type="text" id="myInput" placeholder="추가하기...">
-  <button type="submit" class="addBtn">Add</button>
-</form>
-
-</nav>
 <section>
-<div>
-<ul id="list">
-    {% for con in content %}
-    <li class="text">{{con[1]}}<a href="/delete?id={{con[0]}}" id="xBtn">X</a></li>
-    {% endfor %}
-    
-</ul>
+    <form id="myDIV" class="header" action="/content" method="post">
+        <input name="content" type="text" id="myInput" placeholder="추가하기...">
+        <button type="submit" class="addBtn">Add</button>
+    </form>
 
-</div>
+    <div>
+    <ul id="list">
+        {% for con in content %}
+        <li class="text">{{con[1]}}<a href="/delete?id={{con[0]}}" id="xBtn">X</a></li>
+        {% endfor %}
+        
+    </ul>
+    
+    </div>
 </section>
 
-<footer>
-    <p>서울시 관악구 보라매동 ㅣ TEL: 010-3211-3179 ㅣ E-mail: yunsell31@gmail.com</p>
-    <p>Copyright Volunteer. All rights reserved.</p>
-</footer>
-<script src="/static/todo.js"></script>
-</body>
-</html>
+{% endblock %}

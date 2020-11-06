@@ -9,14 +9,14 @@ def get_conn():
         password="1234",
         host="localhost",
         port=3300,
-        database="todo"
+        database="test"
     )
     return conn
 
 @app.route("/") # 메인화면
 def todo():
 
-    sql = """select num,content from todolist;"""
+    sql = """select NUMBER,CONTENT from todolist;"""
 
     try:
         conn = get_conn()
@@ -34,14 +34,40 @@ def todo():
 def login():
     return render_template("/login.html")
 
-@app.route("/content", methods=['POST',]) # 내용표시
+@app.route('/signup')
+def sign_up():
+    return render_template("/signup.html")
+
+@app.route('/sign_up', methods=['POST'])
+def signup():
+
+    if request.method == 'POST':
+        new_id = request.form["ID"]
+        new_pw = request.form["PW"]
+        new_name = request.form["NAME"]
+        new_phone = request.form["PHONE"]
+
+        conn = get_conn()
+        sql = "INSERT INTO member (ID, PW, NAME, PHONE) VALUES ('{0}', '{1}', '{2}', '{3}')".format(new_id, new_pw, new_name, new_phone)
+        
+        cur = conn.cursor()
+        cur.execute(sql)
+        
+        conn.commit()
+        
+        if conn:
+            conn.close()
+
+        return redirect(url_for('login'))
+
+@app.route("/content", methods=['POST']) # 내용표시
 def content():
     if request.method == 'POST':
-        element = request.form['name']
+        element = request.form['content']
         print(element)
         conn = get_conn()
-        sql = "INSERT INTO todo.todolist (content) VALUES ('{}')".format(element)
-
+        sql = "INSERT INTO todolist (CONTENT) VALUES ('{}')".format(element)
+        ####### 아이디 값 적용시켜야 글 올라감 #########
         cur = conn.cursor()
         cur.execute(sql)
 
@@ -59,7 +85,7 @@ def delelte():
     num = request.args.get('id', type=int)
     conn = get_conn()
     sql = "DELETE FROM todolist WHERE num={};".format(num)
-
+    ####### 아이디 값 적용시켜야 글 삭제됨 #########
     cur = conn.cursor()
     cur.execute(sql)
 

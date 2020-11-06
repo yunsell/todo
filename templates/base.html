@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,
+  maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="/static/todo.css">
+  <link rel="stylesheet" href="/static/menu.css">
+  <link rel="stylesheet" href="/static/login.css">
+</head>
+
+<body>
+
+<header style="width: 100%; text-align: center;">
+    <a href="/" class="title">ToDo List</a>
+    <div class="dropdown">
+    <button class="dropbtn">MENU</button>
+    <div class="dropdown-content">
+    <a href="/signup">회원가입</a>
+    <a href="/login">로그인</a>
+    </div>
+</header>
+<br><br>
+
+{% block section %}
+{% endblock %}
+
+<footer>
+    <p>서울시 관악구 보라매동 ㅣ TEL: 010-3211-3179 ㅣ E-mail: yunsell31@gmail.com</p>
+    <p>Copyright Volunteer. All rights reserved.</p>
+</footer>
+<script src="/static/todo.js"></script>
+</body>
+</html>
