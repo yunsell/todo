@@ -1,7 +1,7 @@
-import mariadb
-from flask import Flask, render_template, request, redirect , url_for
-app = Flask(__name__)
+import mariadb, sys, os
+from flask import Flask, render_template, request, redirect , url_for, session
 
+app = Flask(__name__)
 
 def get_conn():
     conn = mariadb.connect(
@@ -32,13 +32,62 @@ def todo():
 
 @app.route("/login")
 def login():
+    if 'NUMBER' in session:
+        r_num = session['NUMBER']
+        alert = """
+                <script>
+                    alert("잘못된 접근입니다.")
+                </script>
+                """
+        return render_template("/", alert=alert)
     return render_template("/login.html")
 
-@app.route('/signup')
+@app.route("/lo_gin", methods=['POST'])
+def check_id():
+    insert_id = request.form['id']
+    insert_pw = request.form['pw']
+    login_flag = False
+
+    result = ""
+
+    sql = "SELECT ID, PW, NUMBER FROM MEMBER WHERE ID = '{}'".format(insert_id)
+    try:
+        conn = get_conn()
+        cur = conn.cursor()
+        cur.execute(sql)
+
+        for (ID, PW, NUMBER) in cur:
+            result = "{0},{1}".format(ID, PW)
+
+            if ID == insert_id and PW == insert_pw :
+                session.clear()
+                session['id'] = request.form['id']
+                session['NUMBER'] = NUMBER
+                login_flag = True
+                break
+    except mariadb.Error as e:
+        print("ERR: {}".format(e))
+        sys.exit(1)
+    except TypeError as e:
+        result = ""
+    if conn:
+        conn.close()
+        result = """
+        <script>
+        alert("아이디 또는 패스워드를 확인 하세요.");
+        </script>
+        """
+    if login_flag:
+        return render_template('/login.html')
+    else:
+        return render_template('/login.html', content=result)
+
+
+@app.route("/signup")
 def sign_up():
     return render_template("/signup.html")
 
-@app.route('/sign_up', methods=['POST'])
+@app.route("/sign_up", methods=['POST'])
 def signup():
 
     if request.method == 'POST':
@@ -98,4 +147,5 @@ def delelte():
 
 
 if __name__ == "__main__":
+    app.secret_key = 'app secret key'
     app.run(host='0.0.0.0')
