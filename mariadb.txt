@@ -1,0 +1,36 @@
+-- MEMBER Table Create SQL
+CREATE TABLE MEMBER
+(
+    `ID`      VARCHAR(20)    NULL        COMMENT '아이디',
+    `PW`      VARCHAR(50)    NULL        COMMENT '비밀번호',
+    `PHONE`   VARCHAR(50)    NULL        COMMENT '연락처',
+    `NAME`    VARCHAR(50)    NULL        COMMENT '이름',
+    `NUMBER`  INT            NOT NULL    AUTO_INCREMENT COMMENT '회원번호',
+    PRIMARY KEY (NUMBER)
+);
+
+ALTER TABLE MEMBER COMMENT '회원';
+
+
+-- MEMBER Table Create SQL
+CREATE TABLE TODOLIST
+(
+    `CONTENT`        VARCHAR(100)    NULL        COMMENT '게시글',
+    `NUMBER`         INT             NOT NULL    AUTO_INCREMENT COMMENT '게시글 번호',
+    `MEMBER_NUMBER`  INT             NOT NULL    COMMENT '회원번호',
+    PRIMARY KEY (NUMBER)
+);
+
+ALTER TABLE TODOLIST COMMENT '할일';
+
+ALTER TABLE TODOLIST
+    ADD CONSTRAINT FK_TODOLIST_MEMBER_NUMBER_MEMBER_NUMBER FOREIGN KEY (MEMBER_NUMBER)
+        REFERENCES MEMBER (NUMBER) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+INSERT INTO member (ID, PW, NAME, PHONE) values ('ss', 'ss', 'ss', '1234');
+
+insert into todolist (CONTENT,MEMBER_NUMBER) values ('밥먹기', 1);
+
+
+select ID, PW, NUMBER from `member` ID;

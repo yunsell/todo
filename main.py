@@ -2,6 +2,7 @@ import mariadb, sys, os
 from flask import Flask, render_template, request, redirect , url_for, session
 
 app = Flask(__name__)
+app.secret_key = 'app secret key'
 
 def get_conn():
     conn = mariadb.connect(
@@ -39,7 +40,7 @@ def login():
                     alert("잘못된 접근입니다.")
                 </script>
                 """
-        return render_template("/", alert=alert)
+        return render_template("/login.html", alert=alert)
     return render_template("/login.html")
 
 @app.route("/lo_gin", methods=['POST'])
@@ -59,12 +60,13 @@ def check_id():
         for (ID, PW, NUMBER) in cur:
             result = "{0},{1}".format(ID, PW)
 
-            if ID == insert_id and PW == insert_pw :
+            if ID == insert_id and PW == insert_pw:
                 session.clear()
                 session['id'] = request.form['id']
                 session['NUMBER'] = NUMBER
                 login_flag = True
                 break
+
     except mariadb.Error as e:
         print("ERR: {}".format(e))
         sys.exit(1)
@@ -78,7 +80,7 @@ def check_id():
         </script>
         """
     if login_flag:
-        return render_template('/login.html')
+        return render_template('/todo.html')
     else:
         return render_template('/login.html', content=result)
 
@@ -115,7 +117,7 @@ def content():
         element = request.form['content']
         print(element)
         conn = get_conn()
-        sql = "INSERT INTO todolist (CONTENT) VALUES ('{}')".format(element)
+        sql = "INSERT INTO todolist (CONTENT,MEMBER_NUMBER) VALUES ('{}','{}')".format(element,session['NUMBER'])
         ####### 아이디 값 적용시켜야 글 올라감 #########
         cur = conn.cursor()
         cur.execute(sql)
@@ -147,5 +149,4 @@ def delelte():
 
 
 if __name__ == "__main__":
-    app.secret_key = 'app secret key'
     app.run(host='0.0.0.0')
