@@ -1,4 +1,4 @@
-import mariadb, sys, os
+import mariadb, sys
 from flask import Flask, render_template, request, redirect , url_for, session
 
 app = Flask(__name__)
@@ -14,10 +14,9 @@ def get_conn():
     )
     return conn
 
-@app.route("/") # 메인화면
+@app.route("/todo") # 메인화면
 def todo():
-
-    sql = """select NUMBER,CONTENT from todolist;"""
+    sql = "SELECT NUMBER,CONTENT FROM todolist WHERE MEMBER_NUMBER = {}".format(session['NUMBER'])
 
     try:
         conn = get_conn()
@@ -31,7 +30,7 @@ def todo():
 
     return render_template("/todo.html", content=test)
 
-@app.route("/login")
+@app.route("/")
 def login():
     if 'NUMBER' in session:
         r_num = session['NUMBER']
@@ -80,7 +79,18 @@ def check_id():
         </script>
         """
     if login_flag:
-        return render_template('/todo.html')
+        sql = "SELECT NUMBER,CONTENT FROM todolist WHERE MEMBER_NUMBER = {}".format(session['NUMBER'])
+
+        try:
+            conn = get_conn()
+            cur = conn.cursor()
+            cur.execute(sql)
+            test = cur.fetchall()
+
+        finally:
+            if conn:
+                conn.close()
+        return render_template('/todo.html', content=test)
     else:
         return render_template('/login.html', content=result)
 
@@ -135,7 +145,7 @@ def delelte():
 
     num = request.args.get('id', type=int)
     conn = get_conn()
-    sql = "DELETE FROM todolist WHERE num={};".format(num)
+    sql = "DELETE FROM todolist WHERE NUMBER = {}".format(num)
     ####### 아이디 값 적용시켜야 글 삭제됨 #########
     cur = conn.cursor()
     cur.execute(sql)

@@ -28,9 +28,15 @@ ALTER TABLE TODOLIST
         REFERENCES MEMBER (NUMBER) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-INSERT INTO member (ID, PW, NAME, PHONE) values ('ss', 'ss', 'ss', '1234');
+INSERT INTO member (ID, PW, NAME, PHONE) VALUES ('ss', 'ss', 'ss', '1234');
 
-insert into todolist (CONTENT,MEMBER_NUMBER) values ('밥먹기', 1);
+INSERT INTO todolist (CONTENT,MEMBER_NUMBER) VALUES ('밥먹기', 1);
 
 
-select ID, PW, NUMBER from `member` ID;
+SELECT ID, PW, NUMBER FROM `member` ID;
+
+SELECT NUMBER,CONTENT FROM todolist;
+
+SELECT NUMBER,CONTENT FROM todolist WHERE MEMBER_NUMBER = 1 ;
+
+DELETE FROM todolist WHERE NUMBER = 1;
