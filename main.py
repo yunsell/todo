@@ -10,13 +10,13 @@ def get_conn():
         password="1234",
         host="localhost",
         port=3300,
-        database="test"
+        database="todo"
     )
     return conn
 
 @app.route("/todo") # 메인화면
 def todo():
-    sql = "SELECT NUMBER,CONTENT FROM todolist WHERE MEMBER_NUMBER = {}".format(session['NUMBER'])
+    sql = "SELECT NUMBER,CONTENT FROM TODOLIST WHERE MEMBER_NUMBER = {}".format(session['NUMBER'])
 
     try:
         conn = get_conn()
@@ -79,7 +79,7 @@ def check_id():
         </script>
         """
     if login_flag:
-        sql = "SELECT NUMBER,CONTENT FROM todolist WHERE MEMBER_NUMBER = {}".format(session['NUMBER'])
+        sql = "SELECT NUMBER,CONTENT FROM TODOLIST WHERE MEMBER_NUMBER = {}".format(session['NUMBER'])
 
         try:
             conn = get_conn()
@@ -109,7 +109,7 @@ def signup():
         new_phone = request.form["PHONE"]
 
         conn = get_conn()
-        sql = "INSERT INTO member (ID, PW, NAME, PHONE) VALUES ('{0}', '{1}', '{2}', '{3}')".format(new_id, new_pw, new_name, new_phone)
+        sql = "INSERT INTO MEMBER (ID, PW, NAME, PHONE) VALUES ('{0}', '{1}', '{2}', '{3}')".format(new_id, new_pw, new_name, new_phone)
         
         cur = conn.cursor()
         cur.execute(sql)
@@ -127,7 +127,7 @@ def content():
         element = request.form['content']
         print(element)
         conn = get_conn()
-        sql = "INSERT INTO todolist (CONTENT,MEMBER_NUMBER) VALUES ('{}','{}')".format(element,session['NUMBER'])
+        sql = "INSERT INTO TODOLIST (CONTENT,MEMBER_NUMBER) VALUES ('{}','{}')".format(element,session['NUMBER'])
         ####### 아이디 값 적용시켜야 글 올라감 #########
         cur = conn.cursor()
         cur.execute(sql)
@@ -145,7 +145,7 @@ def delelte():
 
     num = request.args.get('id', type=int)
     conn = get_conn()
-    sql = "DELETE FROM todolist WHERE NUMBER = {}".format(num)
+    sql = "DELETE FROM TODOLIST WHERE NUMBER = {}".format(num)
     ####### 아이디 값 적용시켜야 글 삭제됨 #########
     cur = conn.cursor()
     cur.execute(sql)
