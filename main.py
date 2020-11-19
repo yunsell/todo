@@ -41,6 +41,7 @@ def login():
                 """
         return render_template("/login.html", alert=alert)
     return render_template("/login.html")
+####### 첫화면을 빈화면에서 로그인화면으로 바꿈 #########
 
 @app.route("/lo_gin", methods=['POST'])
 def check_id():
@@ -110,7 +111,7 @@ def signup():
 
         conn = get_conn()
         sql = "INSERT INTO MEMBER (ID, PW, NAME, PHONE) VALUES ('{0}', '{1}', '{2}', '{3}')".format(new_id, new_pw, new_name, new_phone)
-        
+        ####### 회원가입 입력값을 포멧팅으로 SQL문에 넣어 실행 #########
         cur = conn.cursor()
         cur.execute(sql)
         
