@@ -1,6 +1,5 @@
-Todo List
--
-할일 추가 및 관리 심플하게 관리할 수 있는 웹입니다.
+# Todo List
+- 할일 추가 및 관리 심플하게 관리할 수 있는 웹입니다.
 
 ![캡처](https://user-images.githubusercontent.com/67350653/100952485-f68e2300-3553-11eb-9c9e-9fc009dd8a2a.PNG)
 
